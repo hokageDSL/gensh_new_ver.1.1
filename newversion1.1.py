@@ -1,5 +1,5 @@
 import random
-from playsound import playsound
+import winsound
 # Акуратнее со звуком)
 #
 ganyu = [
@@ -21,7 +21,7 @@ ayaka = [
 
 lst_character_description_all = [ganyu, hutao, ayaka]
 lst_character_name_all = ["Гань Юй", "Ху Тао", "Аяка"]
-lst_character_audio_all = ["audio\\ganyu.mp3", "audio\\hutao.mp3", "audio\\ayaka.mp3"]
+lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka.wav"]
 
 
 def game():
@@ -53,7 +53,7 @@ def game():
         character_description = charact_description[random.choice(range(0, len(charact_description)))]
 
         print(character_description)
-        playsound(unused_character_audio[random_character])
+        winsound.PlaySound(unused_character_audio[random_character], winsound.SND_FILENAME)
 
 
         player_option = (input("Ответ: ")).title()
