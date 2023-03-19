@@ -1,8 +1,6 @@
 import random
 import winsound
 from winsound import SND_FILENAME
-# Аккуратнее со звуком)
-#
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
     "Трудолюбивая и ответственная девушка, которая славится своим трудолюбием и усердием, \nа также предпочитает плотно поесть.",
@@ -33,7 +31,7 @@ def game():
     game_status = input().capitalize()
 
     unused_character_name = []
-    unused_character_name.extend(lst_character_name_all)  # неиспользованные персонажи.
+    unused_character_name.extend(lst_character_name_all)
     unused_character_description = []
     unused_character_description.extend(lst_character_description_all)
     unused_character_audio = []
