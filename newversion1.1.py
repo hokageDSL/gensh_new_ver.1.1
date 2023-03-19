@@ -1,7 +1,6 @@
 import random
-import winsound
-from winsound import SND_FILENAME
-# Акуратнее со звуком)
+
+# Аккуратнее со звуком)
 #
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
@@ -54,7 +53,7 @@ def game():
         character_description = charact_description[random.choice(range(0, len(charact_description)))]
 
         print(character_description)
-        winsound.PlaySound(unused_character_audio[random_character], SND_FILENAME)
+
 
 
         player_option = (input("Ответ: ")).title()
