@@ -1,6 +1,7 @@
 import random
-# Checking this xueta
-# Заработали
+from playsound import playsound
+# Акуратнее со звуком)
+#
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
     "Трудолюбивая и ответственная девушка, которая славится своим трудолюбием и усердием, \nа также предпочитает плотно поесть.",
@@ -20,23 +21,31 @@ ayaka = [
 
 lst_character_description_all = [ganyu, hutao, ayaka]
 lst_character_name_all = ["Гань Юй", "Ху Тао", "Аяка"]
+lst_character_audio_all = ["audio\\ganyu.mp3", "audio\\hutao.mp3", "audio\\ayaka.mp3"]
 
 
-def game(lst_character_name, lst_character_description_all):
-    user_name = input("Привет, я игра 'Угадай персонажа', введите имя игрока: ")
+def game():
+    user_name = input("Привет, я игра 'Угадай персонажа', введите имя игрока: ").capitalize()
 
     print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
     game_status = input().capitalize()
 
-    unused_character_name = lst_character_name  # не использованные персонажи.
-
-    unused_character_description = lst_character_description_all
+    unused_character_name = []
+    unused_character_name.extend(lst_character_name_all)  # неиспользованные персонажи.
+    unused_character_description = []
+    unused_character_description.extend(lst_character_description_all)
+    unused_character_audio = []
+    unused_character_audio.extend(lst_character_audio_all)
 
     while game_status != "Стоп":
+        if len(unused_character_name) == 0:
+            if input('Персонажи закончились, если хотите попробовать снова, ответьте: "Да" ').capitalize() == 'Да':
+                game()
+            break
 
         random_character = random.choice(
-            range(0, len(unused_character_name)))  # случайный индекс не использованного персонажа.
+            range(0, len(unused_character_name)))  # случайный индекс неиспользованного персонажа.
 
         charact_description = unused_character_description[
             random_character]  # список описаний персонажа, индекс которого выбран строчкой выше.
@@ -44,8 +53,10 @@ def game(lst_character_name, lst_character_description_all):
         character_description = charact_description[random.choice(range(0, len(charact_description)))]
 
         print(character_description)
+        playsound(unused_character_audio[random_character])
 
-        player_option = (input("Ответ: "))
+
+        player_option = (input("Ответ: ")).title()
         if player_option == unused_character_name[random_character]:
             print(f"{user_name}, поздравляю вы угадали персонажа!\nСтоп - завершить игру.")
             game_status = input("Идем дальше? ").capitalize()
@@ -56,8 +67,9 @@ def game(lst_character_name, lst_character_description_all):
 
         unused_character_name.pop(random_character)
         unused_character_description.pop(random_character)
+        unused_character_audio.pop(random_character)
 
 
-game(lst_character_name_all, lst_character_description_all)
+game()
 
 print("Вы вышли из игры.")
