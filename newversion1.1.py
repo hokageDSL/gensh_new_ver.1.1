@@ -1,5 +1,22 @@
 import random
+
 import winsound
+
+import sqlite3
+from sqlite3 import Error
+
+
+def sql_connection():
+    try:
+        con = sqlite3.connect('base_charapters.db')
+        return con
+    except Error:
+        print(Error)
+
+
+con = sql_connection()
+
+
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
     "Трудолюбивая и ответственная девушка, которая славится своим трудолюбием и усердием, \nа также предпочитает плотно поесть.",
@@ -52,8 +69,6 @@ def game():
 
         print(character_description)
         winsound.PlaySound(unused_character_audio[random_character], winsound.SND_FILENAME | winsound.SND_ASYNC)
-
-
 
         player_option = (input("Ответ: ")).title()
         if player_option == unused_character_name[random_character]:
