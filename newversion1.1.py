@@ -38,10 +38,11 @@ lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka
 
 
 def game():
+    print("Привет, я игра 'Угадай персонажа'.")
     def user_name_check():
         while True:
             symbols = (' ! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [  ] ^ _ ` { | } ~. ')
-            user_name_f = input("Привет, я игра 'Угадай персонажа', введите имя игрока: ").capitalize()
+            user_name_f = input("Введите имя игрока: ").capitalize()
             result = -1
             for i in user_name_f:
                 result += symbols.find(i)
