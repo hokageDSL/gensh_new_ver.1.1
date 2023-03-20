@@ -1,6 +1,5 @@
 import random
 import winsound
-from winsound import SND_FILENAME
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
     "Трудолюбивая и ответственная девушка, которая славится своим трудолюбием и усердием, \nа также предпочитает плотно поесть.",
@@ -52,17 +51,19 @@ def game():
         character_description = charact_description[random.choice(range(0, len(charact_description)))]
 
         print(character_description)
-        winsound.PlaySound(unused_character_audio[random_character], SND_FILENAME)
+        winsound.PlaySound(unused_character_audio[random_character], winsound.SND_FILENAME | winsound.SND_ASYNC)
 
 
 
         player_option = (input("Ответ: ")).title()
         if player_option == unused_character_name[random_character]:
+            winsound.PlaySound(None, winsound.SND_PURGE)
             print(f"{user_name}, поздравляю вы угадали персонажа!\nСтоп - завершить игру.")
             game_status = input("Идем дальше? ").capitalize()
 
         else:
             print("К сожалению вы не угадали, Стоп - завершить игру.")
+            winsound.PlaySound(None, winsound.SND_PURGE)
             game_status = input("Идем дальше? ").capitalize()
 
         unused_character_name.pop(random_character)
