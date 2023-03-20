@@ -1,9 +1,8 @@
 import random
-
-import winsound
-
 import sqlite3
 from sqlite3 import Error
+
+import winsound
 
 
 def sql_connection():
@@ -15,7 +14,6 @@ def sql_connection():
 
 
 con = sql_connection()
-
 
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
@@ -40,7 +38,21 @@ lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka
 
 
 def game():
-    user_name = input("Привет, я игра 'Угадай персонажа', введите имя игрока: ").capitalize()
+    def user_name_check():
+        while True:
+            symbols = (' ! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [  ] ^ _ ` { | } ~. ')
+            user_name_f = input("Привет, я игра 'Угадай персонажа', введите имя игрока: ").capitalize()
+            result = -1
+            for i in user_name_f:
+                result += symbols.find(i)
+            if result > -1:
+                print(
+                    "В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского алфавитов и цифры, введите имя еще раз.")
+                continue
+            break
+        return user_name_f
+
+    user_name = user_name_check()
 
     print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
