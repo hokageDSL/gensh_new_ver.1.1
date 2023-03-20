@@ -39,6 +39,7 @@ lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka
 
 def game():
     print("Привет, я игра 'Угадай персонажа'.")
+
     def user_name_check():
         while True:
             symbols = (' ! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [  ] ^ _ ` { | } ~. ')
