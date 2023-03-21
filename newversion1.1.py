@@ -37,26 +37,21 @@ lst_character_name_all = ["Гань Юй", "Ху Тао", "Аяка"]
 lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka.wav"]
 
 
+def user_name_check():
+    symbols = '! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [ ] ^ _ ` { | } ~ .'
+    user_name = input("Введите имя игрока: ").capitalize()
+    for s in user_name:
+        if s in symbols:
+            print("В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского "
+                  "алфавитов и цифры, введите имя еще раз.")
+            user_name_check()
+        else:
+            return user_name
+
+
 def game():
     print("Привет, я игра 'Угадай персонажа'.")
-
-    def user_name_check():
-        while True:
-            symbols = (' ! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [  ] ^ _ ` { | } ~. ')
-            user_name_f = input("Введите имя игрока: ").capitalize()
-            result = -1
-            for i in user_name_f:
-                result += symbols.find(i)
-            if result > -1:
-                print(
-                    "В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского алфавитов и цифры, введите имя еще раз.")
-                continue
-            break
-        return user_name_f
-
-    user_name = user_name_check()
-
-    print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
+    print(f"{user_name_check()}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
     game_status = input().capitalize()
 

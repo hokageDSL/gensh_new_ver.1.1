@@ -17,7 +17,6 @@ def sql_connection():
 
 con = sql_connection()
 
-
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
     "Трудолюбивая и ответственная девушка, которая славится своим трудолюбием и усердием, \nа также предпочитает плотно поесть.",
@@ -40,44 +39,36 @@ lst_character_name_all = ["Гань Юй", "Ху Тао", "Аяка"]
 lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka.wav"]
 
 
+def user_name_check():
+    window = Tk()
+    window.geometry('1280x720')
+    txt = Entry(window, width=10)
+    txt.grid(column=1, row=0)
+    btn = Button(window, text="Не нажимать!")
+    btn.grid(column=2, row=0)
+    window.mainloop()
+    symbols = '! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [ ] ^ _ ` { | } ~ .'
+    user_name = txt
+    for s in user_name:
+        if s in symbols:
+            print("В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского "
+                  "алфавитов и цифры, введите имя еще раз.")
+            user_name_check()
+        else:
+            return user_name
+
 
 def game():
-
     window = Tk()
     window.title("Quest game")
     window.geometry('1820x850')
     lbl = Label(window, text="Привет, я игра 'Угадай персонажа'.")
     lbl.grid(column=0, row=0)
+    btn = Button(window, text="Играть", command=lambda: window.quit())
+    btn.grid(column=2, row=0)
     window.mainloop()
 
-    def clicked():
-        lbl.configure(text="Я же просил...")
-
-
-    def user_name_check():
-        while True:
-            symbols = (' ! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [  ] ^ _ ` { | } ~. ')
-
-            txt = Entry(window, width=10)
-            txt.grid(column=1, row=0)
-            btn = Button(window, text="Не нажимать!", command=clicked)
-            btn.grid(column=2, row=0)
-            window.mainloop()
-
-            user_name_f = input("Введите имя игрока: ").capitalize()
-            result = -1
-            for i in user_name_f:
-                result += symbols.find(i)
-            if result > -1:
-                print(
-                    "В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского алфавитов и цифры, введите имя еще раз.")
-                continue
-            break
-        return user_name_f
-
-    user_name = user_name_check()
-
-    print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
+    print(f"{user_name_check()}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
     game_status = input().capitalize()
 
@@ -122,6 +113,5 @@ def game():
 
 
 game()
-
 
 print("Вы вышли из игры.")
