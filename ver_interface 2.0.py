@@ -14,8 +14,8 @@ def sql_connection():
     except Error:
         print(Error)
 
-
 con = sql_connection()
+
 
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
@@ -52,88 +52,66 @@ def user_name_check(user_name):
 
 
 def game():
+    def raise_frame(frame):
+        frame.tkraise()
 
-
-    # user_name = user_name_check()
 
     window = Tk()  # Создаём окно приложения.
     window.title("Привет, я игра 'Угадай персонажа'.")
     window.geometry('1280x720')
 
-
     frame = Frame(
-        window,  # Обязательный параметр, который указывает окно для размещения Frame.
+        window,
         padx=10,  # Задаём отступ по горизонтали.
         pady=10  # Задаём отступ по вертикали.
     )
-    frame.pack(expand=True)
+    # frame.pack(expand=True)
+    f2 = Frame(window)
+    f3 = Frame(window)
+    f4 = Frame(window)
 
-    height_lb = Label(
+    for frame in (frame, f2, f3, f4):
+        frame.grid(row=0, column=0, sticky='news')
+
+
+    name = Label(
         frame,
         text="Введите имя:  "
     )
-    height_lb.grid(row=3, column=1)
+    name.grid(row=3, column=1)
 
-
-    height_tf = Entry(
+    name_input = Entry(
         frame,  # Используем нашу заготовку с настроенными отступами.
     )
-    height_tf.grid(row=3, column=2)
-    user_name = height_tf.get()
+    name_input.grid(row=3, column=2)
+    name_input.focus_set()
 
+    user_name = name_input.get()
 
-
-    cal_btn = Button(
+    start_btn = Button(
         frame,  # Заготовка с настроенными отступами.
         text='запуск',  # Надпись на кнопке.
-        command= user_name_check(user_name)
-    )
-    cal_btn.grid(row=5, column=2)
+        command=lambda: raise_frame(f2)
+    ).pack
+    # start_btn.grid(row=5, column=2)
+    raise_frame(frame)
+    window.mainloop()
+
+    welcome_txt = Label(
+        f2,
+        text=f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'."
+    ).pack
+    name.grid(row=3, column=1)
 
     window.mainloop()
 
-    print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
-    game_status = input().capitalize()
 
-    unused_character_name = []
-    unused_character_name.extend(lst_character_name_all)
-    unused_character_description = []
-    unused_character_description.extend(lst_character_description_all)
-    unused_character_audio = []
-    unused_character_audio.extend(lst_character_audio_all)
 
-    while game_status != "Стоп":
-        if len(unused_character_name) == 0:
-            if input('Персонажи закончились, если хотите попробовать снова, ответьте: "Да" ').capitalize() == 'Да':
-                game()
-            break
 
-        random_character = random.choice(
-            range(0, len(unused_character_name)))  # случайный индекс неиспользованного персонажа.
 
-        charact_description = unused_character_description[
-            random_character]  # список описаний персонажа, индекс которого выбран строчкой выше.
 
-        character_description = charact_description[random.choice(range(0, len(charact_description)))]
 
-        print(character_description)
-        winsound.PlaySound(unused_character_audio[random_character], winsound.SND_FILENAME | winsound.SND_ASYNC)
-
-        player_option = (input("Ответ: ")).title()
-        if player_option == unused_character_name[random_character]:
-            winsound.PlaySound(None, winsound.SND_PURGE)
-            print(f"{user_name}, поздравляю вы угадали персонажа!\nСтоп - завершить игру.")
-            game_status = input("Идем дальше? ").capitalize()
-
-        else:
-            print("К сожалению вы не угадали, Стоп - завершить игру.")
-            winsound.PlaySound(None, winsound.SND_PURGE)
-            game_status = input("Идем дальше? ").capitalize()
-
-        unused_character_name.pop(random_character)
-        unused_character_description.pop(random_character)
-        unused_character_audio.pop(random_character)
 
 
 game()
