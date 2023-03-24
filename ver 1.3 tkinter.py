@@ -47,8 +47,8 @@ def user_name_check(user_name):
             print("В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского "
                   "алфавитов и цифры, введите имя еще раз.")
             game()
-        else:
-            return user_name
+    else:
+        return user_name
 
 
 def game():
