@@ -54,8 +54,8 @@ def user_name_check():
             print("В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского "
                   "алфавитов и цифры, введите имя еще раз.")
             user_name_check()
-        else:
-            return user_name
+    else:
+        return user_name
 
 
 def game():
@@ -67,8 +67,8 @@ def game():
     btn = Button(window, text="Играть", command=lambda: window.quit())
     btn.grid(column=2, row=0)
     window.mainloop()
-
-    print(f"{user_name_check()}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
+    user_name = user_name_check()
+    print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
     game_status = input().capitalize()
 
