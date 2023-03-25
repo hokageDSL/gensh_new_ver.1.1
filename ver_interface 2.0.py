@@ -80,6 +80,7 @@ def game():
             )
         if result == 0:
             uncorrect.config(text="")
+            raise_frame(f2)
 
     name = Label(f1, text="Введите имя:  ")
     name.pack()
