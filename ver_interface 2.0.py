@@ -1,5 +1,8 @@
+import random
 import sqlite3
 from sqlite3 import Error
+
+import winsound
 
 from tkinter import *
 
@@ -11,8 +14,8 @@ def sql_connection():
     except Error:
         print(Error)
 
-
 con = sql_connection()
+
 
 ganyu = [
     "Секретарь, который ответственен за каждое постановление и решение Цисин в Ли Юэ.",
@@ -37,55 +40,78 @@ lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka
 
 
 def user_name_check(user_name):
+
     symbols = '! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [ ] ^ _ ` { | } ~ .'
     for s in user_name:
         if s in symbols:
             print("В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского "
                   "алфавитов и цифры, введите имя еще раз.")
-            return 1
+            game()
     else:
-        return 0
+        return user_name
 
 
 def game():
     def raise_frame(frame):
         frame.tkraise()
 
-    def checking(frame, user_name):
-        if user_name_check(user_name) == 0:
-            frame.tkraise()
-        else:
-            game()
 
-    def callback():
-        return name.get()
-
-    window = Tk()
+    window = Tk()  # Создаём окно приложения.
     window.title("Привет, я игра 'Угадай персонажа'.")
     window.geometry('1280x720')
 
-    f1 = Frame(window)
+    frame = Frame(
+        window,
+        padx=10,  # Задаём отступ по горизонтали.
+        pady=10  # Задаём отступ по вертикали.
+    )
+    # frame.pack(expand=True)
     f2 = Frame(window)
     f3 = Frame(window)
     f4 = Frame(window)
 
-    for frame in (f1, f2, f3, f4):
+    for frame in (frame, f2, f3, f4):
         frame.grid(row=0, column=0, sticky='news')
 
-    Label(f1, text="Введите имя:  ").pack()
 
-    name = Entry(f1)
-    name.pack()
-    name.focus()
+    name = Label(
+        frame,
+        text="Введите имя:  "
+    )
+    name.grid(row=3, column=1)
 
-    button_start = Button(f1, text='Играть', command=lambda: [checking(f2, callback())])
-    button_start.pack()
+    name_input = Entry(
+        frame,  # Используем нашу заготовку с настроенными отступами.
+    )
+    name_input.grid(row=3, column=2)
+    name_input.focus_set()
 
-    Label(f2, text=f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.").pack()
+    user_name = name_input.get()
 
-    raise_frame(f1)
+    start_btn = Button(
+        frame,  # Заготовка с настроенными отступами.
+        text='запуск',  # Надпись на кнопке.
+        command=lambda: raise_frame(f2)
+    ).pack
+    # start_btn.grid(row=5, column=2)
+    raise_frame(frame)
+    window.mainloop()
+
+    welcome_txt = Label(
+        f2,
+        text=f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'."
+    ).pack
+    name.grid(row=3, column=1)
 
     window.mainloop()
+
+
+
+
+
+
+
+
 
 
 game()

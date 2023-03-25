@@ -51,7 +51,8 @@ def user_name_check():
 
 def game():
     print("Привет, я игра 'Угадай персонажа'.")
-    print(f"{user_name_check()}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
+    user_name = user_name_check()
+    print(f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'.")
 
     game_status = input().capitalize()
 
