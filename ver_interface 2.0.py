@@ -37,6 +37,9 @@ lst_character_audio_all = ["audio\\ganyu.wav", "audio\\hutao.wav", "audio\\ayaka
 
 
 def user_name_check(user_name):
+    if user_name == "":
+        return 2
+
     symbols = '! " # $ % & ’ ( ) * + , - . / : ; < = > ? @ [ ] ^ _ ` { | } ~ .'
     for s in user_name:
         if s in symbols:
@@ -66,13 +69,17 @@ def game():
 
     def user_inpt(event):
         user_name = name_input.get()
-        if user_name_check(user_name) == 1:
+        result = user_name_check(user_name)
+        if result == 2:
+            uncorrect.config(text="Вы не ввели имя.")
+
+        if result == 1:
 
             uncorrect.config(
                 text="В имени найдены запрещенные символы или пробел.\nИмя должно содержать только буквы английского,"
-                     "\nрусского алфавитов и цифры, введите имя еще раз."
+                "\nрусского алфавитов и цифры, введите имя еще раз."
             )
-        else:
+        if result == 0:
             uncorrect.config(text="")
 
     name = Label(f1, text="Введите имя:  ")
