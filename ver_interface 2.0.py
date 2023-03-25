@@ -46,17 +46,6 @@ def user_name_check(user_name):
 
 
 def game():
-    def raise_frame(frame):
-        frame.tkraise()
-
-    def user_inpt(event):
-        user_name = name_input.get()
-        if user_name_check(user_name) == 1:
-            Label(f1,
-                  text="В имени найдены запрещенные символы.\nИмя должно содержать только буквы английского/русского "
-                       "алфавитов и цифры, введите имя еще раз.").pack()
-            game()
-
     window = Tk()
     window.title("Привет, я игра 'Угадай персонажа'.")
     # window.geometry('1280x720')
@@ -69,11 +58,26 @@ def game():
     for frame in (f1, f2, f3, f4):
         frame.grid(row=0, column=0, sticky='news')
 
-    name = Label(
-        f1,
-        text="Введите имя:  "
-    )
+    uncorrect = Label(f1)
+    uncorrect.pack()
+
+    def raise_frame(frame):
+        frame.tkraise()
+
+    def user_inpt(event):
+        user_name = name_input.get()
+        if user_name_check(user_name) == 1:
+
+            uncorrect.config(
+                text="В имени найдены запрещенные символы или пробел.\nИмя должно содержать только буквы английского,"
+                     "\nрусского алфавитов и цифры, введите имя еще раз."
+            )
+        else:
+            uncorrect.config(text="")
+
+    name = Label(f1, text="Введите имя:  ")
     name.pack()
+
     user_name = None
     name_input = Entry(f1)
     name_input.pack()
@@ -81,6 +85,8 @@ def game():
     but = Button(f1, text="Играть")
     but.bind('<Button-1>', user_inpt)
     but.pack()
+
+    uncorrect.pack(side='bottom')
 
     welcome_txt = Label(
         f2,
@@ -94,5 +100,3 @@ def game():
 
 
 game()
-
-print("Вы вышли из игры.")
