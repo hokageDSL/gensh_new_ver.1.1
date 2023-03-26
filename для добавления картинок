@@ -1,0 +1,18 @@
+# import requests
+# from io import BytesIO
+# from PIL import Image, ImageTk
+# image_b = Label(f1)
+    #
+    # url = 'https://i.pinimg.com/originals/35/8f/29/358f293ac6d46e0a6b7660976e05335a.jpg'
+    #
+    # def load_image():
+    #     response = requests.get(url)
+    #     if response.status_code != 200:
+    #         image_b['text'] = 'Изображение не найдено' + str(response.status_code)
+    #     else:
+    #         image = ImageTk.PhotoImage(Image.open(BytesIO(response.content)).resize((1920, 1080)))
+    #
+    #         image_b.config(image=image)
+    #         image_b.image = image
+    # load_image()
+    # image_b.pack()
