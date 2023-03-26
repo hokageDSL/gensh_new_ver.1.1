@@ -1,9 +1,10 @@
 import random
 import sqlite3
+import time
+import winsound
+
 from sqlite3 import Error
 from tkinter import *
-
-import winsound
 
 
 def sql_connection():
@@ -147,6 +148,7 @@ def game():
         return 0
 
     def playing():
+        window.update()
 
         check = check_lst()
         if check == 1:
@@ -180,9 +182,30 @@ def game():
             if x == unused_character_name[random_character]:
                 win.config(text="")
                 win.config(text=f"{user_name}, поздравляю вы угадали персонажа!")
+                window.update()
+
+                time.sleep(1)
+
+                unused_character_name.pop(random_character)
+                unused_character_description.pop(random_character)
+                unused_character_audio.pop(random_character)
+
+                win.destroy()
+                player_option_but.destroy()
+                character_description_label.config(text="")
+
+                playing()
+
             else:
                 win.config(text="")
                 win.config(text="К сожалению вы не угадали.")
+
+                window.update()
+
+                time.sleep(2)
+
+                win.config(text="")
+                window.update()
 
         player_option_but = Button(
             f2,
