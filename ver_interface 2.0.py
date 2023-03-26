@@ -1,8 +1,9 @@
+import random
 import sqlite3
 from sqlite3 import Error
-
 from tkinter import *
 
+import winsound
 
 
 def sql_connection():
@@ -52,22 +53,29 @@ def user_name_check(user_name):
 def game():
     window = Tk()
     window.title("Привет, я игра 'Угадай персонажа'.")
-    window.attributes("-fullscreen", True)
-
-
-
+    window.state('zoomed')
+    # window.attributes("-fullscreen", True)
 
     f1 = Frame(window)
     f2 = Frame(window)
     f3 = Frame(window)
     f4 = Frame(window)
 
-
     for frame in (f1, f2, f3, f4):
         frame.grid(row=0, column=0, sticky="news")
 
     uncorrect = Label(f1)
     uncorrect.pack(side='bottom')
+
+    exit_button = Button(
+        f2,
+        text="Выйти из игры",
+        command=window.destroy
+    )
+    exit_button.pack(side="top")
+
+    user_entry = Entry(f2)
+    user_entry.pack(side="bottom")
 
     def raise_frame(frame):
         frame.tkraise()
@@ -89,11 +97,15 @@ def game():
 
             welcome_txt = Label(
                 f2,
-                text=f"{user_name}, чтобы начать игру, напиши - что-нибудь, чтобы завершить игру напиши - 'Стоп'."
+                text=f"{user_name}, игра стартовала!."
             )
             welcome_txt.pack()
 
             raise_frame(f2)
+
+            playing()
+
+            # welcome_txt.destroy()
 
     name = Label(f1, text="Введите имя:  ")
     name.pack(side=TOP)
@@ -103,15 +115,89 @@ def game():
     name_input = Entry(f1)
     name_input.pack(side=TOP)
 
+    unused_character_name = []
+    unused_character_name.extend(lst_character_name_all)
+    unused_character_description = []
+    unused_character_description.extend(lst_character_description_all)
+    unused_character_audio = []
+    unused_character_audio.extend(lst_character_audio_all)
+
+    def check_lst():
+        if len(unused_character_name) == 0:
+            cancel_txt = Label(
+                f3,
+                text='Персонажи закончились, хотите попробовать снова?'
+            )
+            cancel_txt.pack()
+
+            def again():
+                window.destroy()
+                game()
+
+            quit_or_again = Button(
+                f3,
+                text="Попробовать снова",
+                command=again
+            )
+            quit_or_again.pack()
+
+            window.update()
+
+            return 1
+        return 0
+
+    def playing():
+
+        check = check_lst()
+        if check == 1:
+            raise_frame(f3)
+
+        random_character = random.choice(
+            range(0, len(unused_character_name)))  # случайный индекс неиспользованного персонажа.
+
+        charact_description = unused_character_description[
+            random_character]  # список описаний персонажа, индекс которого выбран строчкой выше.
+
+        character_description = charact_description[random.choice(range(0, len(charact_description)))]
+
+        character_description_label = Label(
+            f2,
+            text=(character_description)
+        )
+        character_description_label.pack()
+
+        winsound.PlaySound(unused_character_audio[random_character], winsound.SND_FILENAME | winsound.SND_ASYNC)
+
+        def check():
+            winsound.PlaySound(None, winsound.SND_PURGE)
+
+            x = user_entry.get()
+            if x == unused_character_name[random_character]:
+
+                win = Label(
+                    f2,
+                    text=f"{user_name}, поздравляю вы угадали персонажа!"
+                )
+                win.pack(side="bottom")
+            else:
+                lose = Label(
+                    f2,
+                    text="К сожалению вы не угадали."
+                )
+                lose.pack(side="bottom")
+
+        player_option_but = Button(
+            f2,
+            text="Ответить",
+            command=check
+        )
+        player_option_but.pack(side='bottom')
+
+        window.update()
+
     but = Button(f1, text="Играть")
     but.bind('<Button-1>', user_inpt)
     but.pack(expand=True, ipadx=10, ipady=1)
-
-
-
-
-
-
 
     raise_frame(f1)
 
