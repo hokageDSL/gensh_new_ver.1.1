@@ -4,6 +4,7 @@ from sqlite3 import Error
 from tkinter import *
 
 
+
 def sql_connection():
     try:
         con = sqlite3.connect('base_charapters.db')
@@ -51,15 +52,19 @@ def user_name_check(user_name):
 def game():
     window = Tk()
     window.title("Привет, я игра 'Угадай персонажа'.")
-    window.geometry('800x600')
+    window.attributes("-fullscreen", True)
+
+
+
 
     f1 = Frame(window)
     f2 = Frame(window)
     f3 = Frame(window)
     f4 = Frame(window)
 
+
     for frame in (f1, f2, f3, f4):
-        frame.grid(row=0, column=0, sticky='news')
+        frame.grid(row=0, column=0, sticky="news")
 
     uncorrect = Label(f1)
     uncorrect.pack(side='bottom')
@@ -91,16 +96,22 @@ def game():
             raise_frame(f2)
 
     name = Label(f1, text="Введите имя:  ")
-    name.pack()
+    name.pack(side=TOP)
 
     user_name = None
 
     name_input = Entry(f1)
-    name_input.pack()
+    name_input.pack(side=TOP)
 
     but = Button(f1, text="Играть")
     but.bind('<Button-1>', user_inpt)
-    but.pack()
+    but.pack(expand=True, ipadx=10, ipady=1)
+
+
+
+
+
+
 
     raise_frame(f1)
 

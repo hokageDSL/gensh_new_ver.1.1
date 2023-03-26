@@ -1,5 +1,0 @@
-import winsound
-from winsound import SND_FILENAME
-
-
-winsound.PlaySound(unused_character_audio[random_character], SND_FILENAME)
