@@ -168,23 +168,21 @@ def game():
 
         winsound.PlaySound(unused_character_audio[random_character], winsound.SND_FILENAME | winsound.SND_ASYNC)
 
+        win = Label(
+            f2,
+            text=""
+        )
+        win.pack(side="bottom")
         def check():
             winsound.PlaySound(None, winsound.SND_PURGE)
 
             x = user_entry.get()
             if x == unused_character_name[random_character]:
-
-                win = Label(
-                    f2,
-                    text=f"{user_name}, поздравляю вы угадали персонажа!"
-                )
-                win.pack(side="bottom")
+                win.config(text="")
+                win.config(text=f"{user_name}, поздравляю вы угадали персонажа!")
             else:
-                lose = Label(
-                    f2,
-                    text="К сожалению вы не угадали."
-                )
-                lose.pack(side="bottom")
+                win.config(text="")
+                win.config(text="К сожалению вы не угадали.")
 
         player_option_but = Button(
             f2,
