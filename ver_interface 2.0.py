@@ -1,10 +1,10 @@
 import random
 import sqlite3
 import time
-import winsound
-
 from sqlite3 import Error
 from tkinter import *
+
+import winsound
 
 
 def sql_connection():
@@ -54,7 +54,7 @@ def user_name_check(user_name):
 def game():
     window = Tk()
     window.title("Привет, я игра 'Угадай персонажа'.")
-    window.state('zoomed')
+    # window.state('zoomed')
     # window.attributes("-fullscreen", True)
 
     f1 = Frame(window)
@@ -74,6 +74,13 @@ def game():
         command=window.destroy
     )
     exit_button.pack(side="top")
+
+    exit_button_2 = Button(
+        f3,
+        text="Выйти из игры",
+        command=window.destroy
+    )
+    exit_button_2.pack(side="bottom")
 
     user_entry = Entry(f2)
     user_entry.pack(side="bottom")
@@ -175,6 +182,7 @@ def game():
             text=""
         )
         win.pack(side="bottom")
+
         def check():
             winsound.PlaySound(None, winsound.SND_PURGE)
 
