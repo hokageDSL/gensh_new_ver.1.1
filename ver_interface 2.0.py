@@ -108,7 +108,7 @@ def game():
                 text=f"{user_name}, игра стартовала!."
             )
             welcome_txt.pack()
-
+            user_entry.focus()
             raise_frame(f2)
 
             playing()
@@ -121,6 +121,7 @@ def game():
     user_name = None
 
     name_input = Entry(f1)
+    name_input.focus()
     name_input.pack(side=TOP)
 
     unused_character_name = []
@@ -156,10 +157,6 @@ def game():
 
     def playing():
         window.update()
-
-        check = check_lst()
-        if check == 1:
-            raise_frame(f3)
 
         random_character = random.choice(
             range(0, len(unused_character_name)))  # случайный индекс неиспользованного персонажа.
@@ -201,8 +198,13 @@ def game():
                 win.destroy()
                 player_option_but.destroy()
                 character_description_label.config(text="")
+                user_entry.delete(0, "end")
 
-                playing()
+                check = check_lst()
+                if check == 1:
+                    raise_frame(f3)
+                else:
+                    playing()
 
             else:
                 win.config(text="")
