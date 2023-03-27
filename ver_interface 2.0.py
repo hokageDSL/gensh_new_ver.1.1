@@ -191,9 +191,12 @@ def game():
 
                 time.sleep(1)
 
-                unused_character_name.pop(random_character)
-                unused_character_description.pop(random_character)
-                unused_character_audio.pop(random_character)
+                if len(unused_character_name) != 0:
+                    unused_character_name.pop(random_character)
+                if len(unused_character_description) != 0:
+                    unused_character_description.pop(random_character)
+                if len(unused_character_audio) != 0:
+                    unused_character_audio.pop(random_character)
 
                 win.destroy()
                 player_option_but.destroy()
