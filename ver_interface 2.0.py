@@ -124,12 +124,9 @@ def game():
     name_input.focus()
     name_input.pack(side=TOP)
 
-    unused_character_name = []
-    unused_character_name.extend(lst_character_name_all)
-    unused_character_description = []
-    unused_character_description.extend(lst_character_description_all)
-    unused_character_audio = []
-    unused_character_audio.extend(lst_character_audio_all)
+    unused_character_name = lst_character_name_all[:]
+    unused_character_description = lst_character_description_all[:]
+    unused_character_audio = lst_character_audio_all[:]
 
     def check_lst():
         if len(unused_character_name) == 0:
